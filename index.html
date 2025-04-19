@@ -1,12 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="assets/index.css">
     <link rel="icon" type="image/x-icon" href="https://play-lh.googleusercontent.com/_TNbiYKasPy_isTSEg2_UEzVaev4F8fO2lLunsHJ8_Ux2g3OzkSZyzpqvJG1woSj-WD4=w240-h480-rw">
     <title>mObywatel</title>
     <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
+    <style>
+        /* Dodatkowe style dla dokumentów */
+        .document-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .document-toggle {
+            background: #0068b5;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .document-form {
+            display: none;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .document-form.active {
+            display: block;
+        }
+        
+        .document-form input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .save-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-     <script>
+    <script>
         // Sprawdź, czy użytkownik jest zalogowany
         if (!sessionStorage.getItem('loggedIn')) {
             // Jeśli nie jest zalogowany, przekieruj do strony logowania
@@ -17,6 +68,29 @@
     <p class="logo_text">JEBAC E JEDRZEJEWSKA0</p>
 
     <p class="warning">JEBAC TEGO SHONA</p>
+
+    <!-- Sekcja dokumentów -->
+    <div class="document-section">
+        <button class="document-toggle" onclick="toggleDocumentForm('student')">Dodaj mLegitymację</button>
+        <div id="student-form" class="document-form">
+            <h3>Dane mLegitymacji</h3>
+            <input type="text" id="student-name" placeholder="Imię i nazwisko">
+            <input type="text" id="student-university" placeholder="Uczelnia">
+            <input type="text" id="student-album" placeholder="Numer albumu">
+            <input type="date" id="student-valid" placeholder="Ważna do">
+            <button class="save-btn" onclick="saveStudentId()">Zapisz mLegitymację</button>
+        </div>
+        
+        <button class="document-toggle" onclick="toggleDocumentForm('driver')">Dodaj mPrawoJazdy</button>
+        <div id="driver-form" class="document-form">
+            <h3>Dane mPrawaJazdy</h3>
+            <input type="text" id="driver-name" placeholder="Imię i nazwisko">
+            <input type="text" id="driver-number" placeholder="Numer prawa jazdy">
+            <input type="date" id="driver-valid" placeholder="Ważne do">
+            <input type="text" id="driver-categories" placeholder="Kategorie (np. B, B1)">
+            <button class="save-btn" onclick="saveDriverLicense()">Zapisz mPrawoJazdy</button>
+        </div>
+    </div>
 
     <div class="guide_holder">
         <div class="top_holder">
@@ -49,6 +123,7 @@
         </div>
     </div>
 
+    <!-- Pozostała część oryginalnego formularza -->
     <div class="input_holder">
         <input type="text" id="name" class="input" placeholder="">
         <span class="placeholder">Imię (imiona)</span>
@@ -84,13 +159,10 @@
         <p class="top_info">Data urodzenia</p>
         <div class="date_grid">
             <input class="date_input" placeholder="DD" type="number">
-    
             </input>
             <input class="date_input" placeholder="MM" type="number">
-    
             </input>
             <input class="date_input" placeholder="YYYY" type="number">
-    
             </input>
         </div>
         <p class="error">Wprowadź prawidłową datę</p>
@@ -160,6 +232,41 @@
         </div>
     </div>
 
+    <script>
+        // Funkcje do obsługi dokumentów
+        function toggleDocumentForm(type) {
+            const form = document.getElementById(`${type}-form`);
+            form.classList.toggle('active');
+        }
+        
+        function saveStudentId() {
+            const studentData = {
+                name: document.getElementById('student-name').value,
+                university: document.getElementById('student-university').value,
+                albumNumber: document.getElementById('student-album').value,
+                validUntil: document.getElementById('student-valid').value
+            };
+            
+            localStorage.setItem('mLegitymacja', JSON.stringify(studentData));
+            alert('mLegitymacja została zapisana!');
+            toggleDocumentForm('student');
+        }
+        
+        function saveDriverLicense() {
+            const driverData = {
+                name: document.getElementById('driver-name').value,
+                licenseNumber: document.getElementById('driver-number').value,
+                validUntil: document.getElementById('driver-valid').value,
+                categories: document.getElementById('driver-categories').value
+            };
+            
+            localStorage.setItem('mPrawoJazdy', JSON.stringify(driverData));
+            alert('mPrawoJazdy zostało zapisane!');
+            toggleDocumentForm('driver');
+        }
+    </script>
+    
     <script src="assets/index.js"></script>
     <script src="assets/manifest.js"></script>
 </body>
+</html>
