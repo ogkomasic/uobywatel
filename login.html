@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #error-message {
+      text-align: center;
+      color: red;
+      font-weight: bold;
+      display: none;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>JEBAC WAS KURWY NIE MA JUZ NIC ZA DARMO</h1>
+      <p style="color: red;">APLIKACJA JEST STWORZONA W CELACH EDUKACYJNYCH</p>
+    <form id="loginForm">
+      <input type="password" id="password" required placeholder="Enter password">
+      <button type="submit">Zaloguj się</button>
+    </form>
+    <p id="error-message">Błędne hasło lub hasło zostało już użyte!</p>
+  </div>
+
+  <!-- Najpierw ładowanie najnowszej wersji skryptu Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest"></script>
+
+  <!-- Potem twój kod -->
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      // Sprawdź, czy Supabase jest załadowane
+      if (!window.supabase) {
+        console.error('Supabase is not loaded correctly!');
+        return;
+      }
+      
+      // 👇 inicjalizacja klienta Supabase
+      const supabase = window.supabase.createClient(
+        'https://dvvugjmnjjhhafqcdpmt.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2dnVnam1uampoaGFmcWNkcG10Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ2MzQ3OTgsImV4cCI6MjA2MDIxMDc5OH0.0yE5bIECJYq60S35yUhZq5g6EPLNujo0iZ4QQXzyrL4'
+      );
+
+      const form = document.getElementById('loginForm');
+      const errorMessage = document.getElementById('error-message');
+
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const password = document.getElementById('password').value;
+        errorMessage.style.display = 'none';
+
+        try {
+          const { data, error } = await supabase
+            .from('passwords')
+            .select('*')
+            .eq('password', password)
+            .eq('used', false)
+            .single();
+
+          if (error || !data) {
+            errorMessage.style.display = 'block';
+            return;
+          }
+
+          const { error: updateError } = await supabase
+            .from('passwords')
+            .update({ used: true })
+            .eq('id', data.id);
+
+          if (updateError) {
+            console.error('Error updating password:', updateError);
+            errorMessage.style.display = 'block';
+            return;
+          }
+
+          sessionStorage.setItem('loggedIn', 'true');
+          window.location.href = 'index.html';
+        } catch (err) {
+          console.error('Error processing login:', err);
+          errorMessage.style.display = 'block';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
