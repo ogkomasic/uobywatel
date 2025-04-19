@@ -7,7 +7,6 @@
     <title>mObywatel</title>
     <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
     <style>
-        /* Style dla przełączania dokumentów */
         .document-switcher {
             display: flex;
             margin-bottom: 20px;
@@ -18,6 +17,10 @@
             padding: 10px 20px;
             cursor: pointer;
             border-bottom: 3px solid transparent;
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #0068b5;
         }
         
         .doc-tab.active {
@@ -32,6 +35,47 @@
         .document-content.active {
             display: block;
         }
+        
+        .go {
+            display: inline-block;
+            background: #0068b5;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .discord {
+            margin-top: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+        }
+        
+        .inner_grid {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .discord_image {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+        
+        .discord_text {
+            color: #0068b5;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -42,14 +86,14 @@
     </script>
     
     <img src="https://cdn.discordapp.com/attachments/1217156005566218362/1355690591866061030/e0491e77-941f-4696-83c1-12c54ae1e7ac.jpg?ex=67e9d8c0&is=67e88740&hm=85021ffd98e09a25f1bb7ee193194b79747cd52d6f5c5a2b7bc51985a8bd4d33&" class="logo">
-    <p class="logo_text">JEBAC E JEDRZEJEWSKA0</p>
-    <p class="warning">JEBAC TEGO SHONA</p>
+    <p class="logo_text">mObywatel</p>
+    <p class="warning">Dokumenty cyfrowe</p>
 
     <!-- Przełącznik dokumentów -->
     <div class="document-switcher">
-        <div class="doc-tab active" onclick="switchDocument('id')">mDowód</div>
-        <div class="doc-tab" onclick="switchDocument('student')">mLegitymacja</div>
-        <div class="doc-tab" onclick="switchDocument('driver')">mPrawoJazdy</div>
+        <button class="doc-tab active" onclick="switchDocument('id')">mDowód</button>
+        <button class="doc-tab" onclick="switchDocument('student')">mLegitymacja</button>
+        <button class="doc-tab" onclick="switchDocument('driver')">mPrawoJazdy</button>
     </div>
 
     <!-- Zawartość mDowodu -->
@@ -64,13 +108,13 @@
                 <ul>
                     <li>Upewnij się, że używasz przeglądarki Safari</li>
                     <li>Uzupełnij dane i kliknij wejdź</li>
-                    <li>Naciśji udostępnij -> Do Ekranu głównego</li>
+                    <li>Naciśnij udostępnij -> Do Ekranu głównego</li>
                 </ul>
                 <span style="font-size: 17px; font-weight: 500;">Dla systemu Android:</span>
                 <ul>
-                    <li>Upewnij się, że używasz przeglądarki google lub chrome</li>
+                    <li>Upewnij się, że używasz przeglądarki Google lub Chrome</li>
                     <li>Uzupełnij dane i kliknij wejdź</li>
-                    <li>Naciśji 3 kropki -> Dodaj do ekranu głównego</li>
+                    <li>Naciśnij 3 kropki -> Dodaj do ekranu głównego</li>
                 </ul>
             </div>
         </div>
@@ -111,7 +155,7 @@
                     Kobieta
                 </div>
                 <div class="selector_option" id="k">
-                    EMILIA JEDRZEJEWSKA
+                    Inna opcja
                 </div>
             </div>
         </div>
@@ -120,11 +164,8 @@
             <p class="top_info">Data urodzenia</p>
             <div class="date_grid">
                 <input class="date_input" placeholder="DD" type="number">
-                </input>
                 <input class="date_input" placeholder="MM" type="number">
-                </input>
                 <input class="date_input" placeholder="YYYY" type="number">
-                </input>
             </div>
             <p class="error">Wprowadź prawidłową datę</p>
         </div>
@@ -185,26 +226,7 @@
             <p class="error">To pole jest wymagane</p>
         </div>
 
-        <div class="input_holder">
-            <input type="text" id="id-number" class="input" placeholder="">
-            <span class="placeholder">Numer dowodu</span>
-            <p class="error">To pole jest wymagane</p>
-        </div>
-
-        <div class="date">
-            <p class="top_info">Data ważności</p>
-            <div class="date_grid">
-                <input class="date_input" placeholder="DD" type="number">
-                </input>
-                <input class="date_input" placeholder="MM" type="number">
-                </input>
-                <input class="date_input" placeholder="YYYY" type="number">
-                </input>
-            </div>
-            <p class="error">Wprowadź prawidłową datę</p>
-        </div>
-
-        <a class="go">Zapisz mDowód</a>
+        <button class="go" onclick="saveDocument('id')">Zapisz mDowód</button>
     </div>
 
     <!-- Zawartość mLegitymacji -->
@@ -247,16 +269,13 @@
             <p class="top_info">Ważna do</p>
             <div class="date_grid">
                 <input class="date_input" placeholder="DD" type="number">
-                </input>
                 <input class="date_input" placeholder="MM" type="number">
-                </input>
                 <input class="date_input" placeholder="YYYY" type="number">
-                </input>
             </div>
             <p class="error">Wprowadź prawidłową datę</p>
         </div>
 
-        <a class="go">Zapisz mLegitymację</a>
+        <button class="go" onclick="saveDocument('student')">Zapisz mLegitymację</button>
     </div>
 
     <!-- Zawartość mPrawaJazdy -->
@@ -293,11 +312,8 @@
             <p class="top_info">Ważne do</p>
             <div class="date_grid">
                 <input class="date_input" placeholder="DD" type="number">
-                </input>
                 <input class="date_input" placeholder="MM" type="number">
-                </input>
                 <input class="date_input" placeholder="YYYY" type="number">
-                </input>
             </div>
             <p class="error">Wprowadź prawidłową datę</p>
         </div>
@@ -308,13 +324,13 @@
             <p class="error">To pole jest wymagane</p>
         </div>
 
-        <a class="go">Zapisz mPrawoJazdy</a>
+        <button class="go" onclick="saveDocument('driver')">Zapisz mPrawoJazdy</button>
     </div>
 
-    <div class="discord" onclick="window.open('https://cdn.discordapp.com/attachments/1253796901841535067/1355895833844776960/IMG_6711.jpg?ex=67ea97e6&is=67e94666&hm=203d73ffb96e1abbb419bbf1f5a01e89c4adccbe9cfcc0bf2c9f62ea99315eda&')">
+    <div class="discord" onclick="window.open('https://example.com')">
         <div class="inner_grid">
-            <img class="discord_image" src="https://cdn.discordapp.com/attachments/1253796901841535067/1355895833844776960/IMG_6711.jpg?ex=67ea97e6&is=67e94666&hm=203d73ffb96e1abbb419bbf1f5a01e89c4adccbe9cfcc0bf2c9f62ea99315eda&">
-            <p class="discord_text">NAPALONE ZDJ EMILI JEDRZJEWSKIEJ KLIKNIJ</p>
+            <img class="discord_image" src="https://via.placeholder.com/50">
+            <p class="discord_text">Przykładowy link</p>
         </div>
     </div>
 
@@ -332,61 +348,77 @@
                 content.classList.remove('active');
             });
             document.getElementById(`${type}-content`).classList.add('active');
-        }
-        
-        // Funkcje zapisywania dokumentów
-        function saveIdCard() {
-            const idData = {
-                name: document.getElementById('name').value,
-                surname: document.getElementById('surname').value,
-                idNumber: document.getElementById('id-number').value,
-                // ... inne pola mDowodu
-            };
             
-            localStorage.setItem('mDowod', JSON.stringify(idData));
-            alert('mDowód został zapisany!');
+            // Załaduj zapisane dane jeśli istnieją
+            loadDocumentData(type);
         }
         
-        function saveStudentId() {
-            const studentData = {
-                name: document.getElementById('student-name').value,
-                university: document.getElementById('student-university').value,
-                albumNumber: document.getElementById('student-album').value,
-                studentId: document.getElementById('student-id').value,
-                validUntil: getDateInput('student')
-            };
+        // Ładowanie zapisanych danych
+        function loadDocumentData(type) {
+            const docName = type === 'id' ? 'mDowod' : 
+                          type === 'student' ? 'mLegitymacja' : 'mPrawoJazdy';
+            const savedData = localStorage.getItem(docName);
             
-            localStorage.setItem('mLegitymacja', JSON.stringify(studentData));
-            alert('mLegitymacja została zapisana!');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                for (const field in data) {
+                    const input = document.querySelector(`#${type}-content #${field}`);
+                    if (input) input.value = data[field];
+                }
+            }
         }
         
-        function saveDriverLicense() {
-            const driverData = {
-                name: document.getElementById('driver-name').value,
-                licenseNumber: document.getElementById('driver-number').value,
-                pesel: document.getElementById('driver-pesel').value,
-                categories: document.getElementById('driver-categories').value,
-                validUntil: getDateInput('driver')
-            };
+        // Funkcja zapisywania dokumentów
+        function saveDocument(type) {
+            const inputs = document.querySelectorAll(`#${type}-content input`);
+            const data = {};
             
-            localStorage.setItem('mPrawoJazdy', JSON.stringify(driverData));
-            alert('mPrawoJazdy zostało zapisane!');
+            inputs.forEach(input => {
+                if (input.type !== 'file') {
+                    data[input.id] = input.value;
+                }
+            });
+            
+            const docName = type === 'id' ? 'mDowod' : 
+                          type === 'student' ? 'mLegitymacja' : 'mPrawoJazdy';
+            
+            localStorage.setItem(docName, JSON.stringify(data));
+            alert(`Dokument ${docName} został zapisany!`);
         }
         
-        function getDateInput(prefix) {
-            const day = document.querySelector(`#${prefix}-content .date_input:nth-child(1)`).value;
-            const month = document.querySelector(`#${prefix}-content .date_input:nth-child(2)`).value;
-            const year = document.querySelector(`#${prefix}-content .date_input:nth-child(3)`).value;
-            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-        }
+        // Obsługa selektora płci
+        document.querySelectorAll('.selector_option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelector('.selected_text').textContent = this.textContent;
+                document.querySelector('.option_box').style.display = 'none';
+            });
+        });
         
-        // Podpięcie funkcji zapisu do przycisków
-        document.querySelector('#id-content .go').addEventListener('click', saveIdCard);
-        document.querySelector('#student-content .go').addEventListener('click', saveStudentId);
-        document.querySelector('#driver-content .go').addEventListener('click', saveDriverLicense);
+        document.querySelector('.selected_grid').addEventListener('click', function() {
+            document.querySelector('.option_box').style.display = 
+                document.querySelector('.option_box').style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Obsługa uploadu zdjęć
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const img = input.closest('.upload').querySelector('.upload_uploaded');
+                        img.src = event.target.result;
+                        img.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+        
+        // Załaduj dane mDowodu na starcie
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDocumentData('id');
+        });
     </script>
-    
-    <script src="assets/index.js"></script>
-    <script src="assets/manifest.js"></script>
 </body>
 </html>
