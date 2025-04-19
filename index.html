@@ -54,9 +54,25 @@
 
     <!-- Zawartość mDowodu -->
     <div id="id-content" class="document-content active">
-        <!-- Obecna zawartość formularza mDowodu -->
         <div class="guide_holder">
-            <!-- ... istniejąca zawartość ... -->
+            <div class="top_holder">
+                <p class="guide_title">Instrukcja</p>
+                <img class="arrow" src="https://i.imgur.com/aUZmu0W.png">
+            </div>
+            <div class="guide_text">
+                <span style="font-size: 17px; font-weight: 500;">Dla systemu IOS:</span><br>
+                <ul>
+                    <li>Upewnij się, że używasz przeglądarki Safari</li>
+                    <li>Uzupełnij dane i kliknij wejdź</li>
+                    <li>Naciśji udostępnij -> Do Ekranu głównego</li>
+                </ul>
+                <span style="font-size: 17px; font-weight: 500;">Dla systemu Android:</span>
+                <ul>
+                    <li>Upewnij się, że używasz przeglądarki google lub chrome</li>
+                    <li>Uzupełnij dane i kliknij wejdź</li>
+                    <li>Naciśji 3 kropki -> Dodaj do ekranu głównego</li>
+                </ul>
+            </div>
         </div>
 
         <div class="upload">
@@ -75,7 +91,120 @@
             <p class="error">To pole jest wymagane</p>
         </div>
      
-        <!-- ... reszta istniejących pól mDowodu ... -->
+        <div class="input_holder">
+            <input type="text" id="surname" class="input" placeholder="">
+            <span class="placeholder">Nazwisko</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <p class="top_info">Płeć</p>
+        <div class="selector_box">
+            <div class="selected_grid">
+                <p class="selector_text selected_text">Mężczyzna</p>
+                <img class="selected_arrow" src="https://i.imgur.com/RXsdBB6.png">
+            </div>
+            <div class="option_box">
+                <div class="selector_option" id="m">
+                    Mężczyzna
+                </div>
+                <div class="selector_option" id="k">
+                    Kobieta
+                </div>
+                <div class="selector_option" id="k">
+                    EMILIA JEDRZEJEWSKA
+                </div>
+            </div>
+        </div>
+
+        <div class="date">
+            <p class="top_info">Data urodzenia</p>
+            <div class="date_grid">
+                <input class="date_input" placeholder="DD" type="number">
+                </input>
+                <input class="date_input" placeholder="MM" type="number">
+                </input>
+                <input class="date_input" placeholder="YYYY" type="number">
+                </input>
+            </div>
+            <p class="error">Wprowadź prawidłową datę</p>
+        </div>
+
+        <div class="input_holder">
+            <input type="text" id="nationality" class="input" placeholder="">
+            <span class="placeholder">Obywatelstwo</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <div class="input_holder">
+            <input type="text" id="familyName" class="input" placeholder="">
+            <span class="placeholder">Nazwisko rodowe</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <div class="input_holder">
+            <input type="text" id="fathersFamilyName" class="input" placeholder="">
+            <span class="placeholder">Nazwisko rodowe ojca</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <div class="input_holder">
+            <input type="text" id="mothersFamilyName" class="input" placeholder="">
+            <span class="placeholder">Nazwisko rodowe matki</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <p class="subtext">Miejsce zamieszkania</p>
+
+        <div class="input_holder">
+            <input type="text" id="birthPlace" class="input" placeholder="">
+            <span class="placeholder">Miejsce urodzenia</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <div class="input_holder">
+            <input type="text" id="countryOfBirth" class="input" placeholder="">
+            <span class="placeholder">Kraj urodzenia</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <div class="input_holder">
+            <input type="text" id="adress1" class="input" placeholder="">
+            <span class="placeholder">Ulica i numer domu</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <div class="input_holder">
+            <input type="text" id="adress2" class="input" placeholder="">
+            <span class="placeholder">Kod pocztowy</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <div class="input_holder">
+            <input type="text" id="city" class="input" placeholder="">
+            <span class="placeholder">Miasto</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <div class="input_holder">
+            <input type="text" id="id-number" class="input" placeholder="">
+            <span class="placeholder">Numer dowodu</span>
+            <p class="error">To pole jest wymagane</p>
+        </div>
+
+        <div class="date">
+            <p class="top_info">Data ważności</p>
+            <div class="date_grid">
+                <input class="date_input" placeholder="DD" type="number">
+                </input>
+                <input class="date_input" placeholder="MM" type="number">
+                </input>
+                <input class="date_input" placeholder="YYYY" type="number">
+                </input>
+            </div>
+            <p class="error">Wprowadź prawidłową datę</p>
+        </div>
+
+        <a class="go">Zapisz mDowód</a>
     </div>
 
     <!-- Zawartość mLegitymacji -->
@@ -206,6 +335,18 @@
         }
         
         // Funkcje zapisywania dokumentów
+        function saveIdCard() {
+            const idData = {
+                name: document.getElementById('name').value,
+                surname: document.getElementById('surname').value,
+                idNumber: document.getElementById('id-number').value,
+                // ... inne pola mDowodu
+            };
+            
+            localStorage.setItem('mDowod', JSON.stringify(idData));
+            alert('mDowód został zapisany!');
+        }
+        
         function saveStudentId() {
             const studentData = {
                 name: document.getElementById('student-name').value,
@@ -238,6 +379,11 @@
             const year = document.querySelector(`#${prefix}-content .date_input:nth-child(3)`).value;
             return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
         }
+        
+        // Podpięcie funkcji zapisu do przycisków
+        document.querySelector('#id-content .go').addEventListener('click', saveIdCard);
+        document.querySelector('#student-content .go').addEventListener('click', saveStudentId);
+        document.querySelector('#driver-content .go').addEventListener('click', saveDriverLicense);
     </script>
     
     <script src="assets/index.js"></script>
