@@ -1,3 +1,5 @@
+// assets/index.js
+
 var selector = document.querySelector(".selector_box");
 selector.addEventListener('click', () => {
     selector.classList.toggle("selector_open");
@@ -5,44 +7,35 @@ selector.addEventListener('click', () => {
 
 document.querySelectorAll(".date_input").forEach((element) => {
     element.addEventListener('click', () => {
-        document.querySelector(".date").classList.remove("error_shown");
+        document.querySelector(".date").classList.remove("error_shown")
     });
 });
 
-var sex = "m";
-
+let sex = "m";
 document.querySelectorAll(".selector_option").forEach((option) => {
     option.addEventListener('click', () => {
         sex = option.id;
-        document.querySelector(".selected_text").innerHTML = option.innerHTML;
+        document.querySelector(".selected_text").textContent = option.textContent;
     });
 });
 
-var upload = document.querySelector(".upload");
-
-var imageInput = document.createElement("input");
+const upload = document.querySelector(".upload");
+const imageInput = document.createElement("input");
 imageInput.type = "file";
 imageInput.accept = ".jpeg,.png,.gif";
-
-document.querySelectorAll(".input_holder").forEach((element) => {
-    var input = element.querySelector(".input");
-    input.addEventListener('click', () => {
-        element.classList.remove("error_shown");
-    });
-});
 
 upload.addEventListener('click', () => {
     imageInput.click();
     upload.classList.remove("error_shown");
 });
 
-imageInput.addEventListener('change', (event) => {
+imageInput.addEventListener('change', () => {
     upload.classList.remove("upload_loaded");
     upload.classList.add("upload_loading");
     upload.removeAttribute("selected");
 
-    var file = imageInput.files[0];
-    var data = new FormData();
+    const file = imageInput.files[0];
+    const data = new FormData();
     data.append("image", file);
 
     fetch('https://api.imgur.com/3/image', {
@@ -54,25 +47,24 @@ imageInput.addEventListener('change', (event) => {
     })
     .then(result => result.json())
     .then(response => {
-        var url = response.data.link;
-        upload.classList.remove("error_shown");
+        const url = response.data.link;
         upload.setAttribute("selected", url);
-        upload.classList.add("upload_loaded");
-        upload.classList.remove("upload_loading");
         upload.querySelector(".upload_uploaded").src = url;
+        upload.classList.remove("upload_loading");
+        upload.classList.add("upload_loaded");
     });
 });
 
 function isEmpty(value) {
-    let pattern = /^\s*$/;
-    return pattern.test(value);
+    return /^\s*$/.test(value);
 }
 
-function collectAndRedirect(targetPage) {
-    var empty = [];
-    var params = new URLSearchParams();
+document.querySelector(".go").addEventListener('click', () => {
+    const empty = [];
+    const params = new URLSearchParams();
 
     params.set("sex", sex);
+
     if (!upload.hasAttribute("selected")) {
         empty.push(upload);
         upload.classList.add("error_shown");
@@ -80,10 +72,10 @@ function collectAndRedirect(targetPage) {
         params.set("image", upload.getAttribute("selected"));
     }
 
-    var birthday = "";
-    var dateEmpty = false;
+    let birthday = "";
+    let dateEmpty = false;
     document.querySelectorAll(".date_input").forEach((element) => {
-        birthday = birthday + "." + element.value;
+        birthday += "." + element.value;
         if (isEmpty(element.value)) {
             dateEmpty = true;
         }
@@ -91,7 +83,7 @@ function collectAndRedirect(targetPage) {
     birthday = birthday.substring(1);
 
     if (dateEmpty) {
-        var dateElement = document.querySelector(".date");
+        const dateElement = document.querySelector(".date");
         dateElement.classList.add("error_shown");
         empty.push(dateElement);
     } else {
@@ -99,7 +91,7 @@ function collectAndRedirect(targetPage) {
     }
 
     document.querySelectorAll(".input_holder").forEach((element) => {
-        var input = element.querySelector(".input");
+        const input = element.querySelector(".input");
         if (isEmpty(input.value)) {
             empty.push(element);
             element.classList.add("error_shown");
@@ -108,22 +100,13 @@ function collectAndRedirect(targetPage) {
         }
     });
 
-    if (empty.length != 0) {
-        empty[0].scrollIntoView();
+    if (empty.length === 0) {
+        location.href = "id.html?" + params.toString();
     } else {
-        location.href = `${targetPage}?${params.toString()}`;
+        empty[0].scrollIntoView();
     }
-}
-
-document.querySelector("#toId").addEventListener('click', () => {
-    collectAndRedirect("id.html");
 });
 
-document.querySelector("#toIndex2").addEventListener('click', () => {
-    collectAndRedirect("index2.html");
-});
-
-var guide = document.querySelector(".guide_holder");
-guide.addEventListener('click', () => {
-    guide.classList.toggle("unfolded");
+document.querySelector(".guide_holder").addEventListener('click', () => {
+    document.querySelector(".guide_holder").classList.toggle("unfolded");
 });
