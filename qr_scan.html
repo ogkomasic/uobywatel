@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>mObywatel - Weryfikacja</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="assets/qr_code.css">
+    <link rel="icon" href="https://i.imgur.com/n4zJhma.png">
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.history.back()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="#0068B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Kod QR
+        </button>
+
+        <!-- Nagłówek -->
+        <div class="qr-header">
+            <h1>Kod QR</h1>
+        </div>
+
+        <!-- Zawartość główna -->
+        <div class="content">
+            <p class="subinstruction">umiesc kod qr w ramce</p>
+
+            <video id="camera" autoplay playsinline style="width: 100%; max-width: 400px; border-radius: 10px;"></video>
+
+            
+        

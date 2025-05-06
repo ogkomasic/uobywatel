@@ -53,21 +53,21 @@ body {
 }
 
 .instruction {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 24px;
+    font-weight: 700;
     margin-bottom: 10px;
 }
 
 .subinstruction {
-    font-size: 16px;
-    color: #666;
+    font-size: 18px;
+    color: #272626;
     margin-bottom: 30px;
 }
 
 /* Kod QR */
 #qrcode {
-    margin: 0 auto;
-    padding: 15px;
+    margin: 100 auto;
+    padding: 60px;
     background: white;
     border-radius: 12px;
     display: inline-block;
@@ -75,14 +75,16 @@ body {
 }
 
 .numeric-code {
+    position: absolute;
     font-size: 32px;
     font-weight: 600;
     letter-spacing: 3px;
-    margin: 20px 0 10px;
+    margin: -60px 170px 30px;
     font-family: monospace;
 }
 
 .expiry-timer {
+    position: absolute;
     font-size: 16px;
     color: #d32f2f;
 }
@@ -162,3 +164,18 @@ body {
         height: 20px;
     }
 }
+
+.qr-label {
+    position: absolute;
+    top: 29px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    background-color: rgba(0,0,0,0);
+    padding: 4px 10px;
+    border-radius: 8px;
+    
+}
+
